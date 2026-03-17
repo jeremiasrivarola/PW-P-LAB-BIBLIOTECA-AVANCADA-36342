@@ -17,6 +17,9 @@ app.use(morgan("dev"));
 app.use("/authors", authorRoutes);
 app.use("/books", bookRoutes);
 
+const statsRoutes = require("./routes/stats.routes");
+
+app.use("/stats", statsRoutes);
 // Rota não encontrada
 app.use((req, res) => {
   res.status(404).json({ message: "Rota não encontrada" });
@@ -25,7 +28,7 @@ app.use((req, res) => {
 // Middleware global de erro
 app.use(errorMiddleware);
 
-const PORT = process.env.SERVER_PORT || 4242;
+const PORT = process.env.SERVER_PORT || 3000;
 
 // Para desenvolvimento local
 if (process.env.NODE_ENV !== "production") {
