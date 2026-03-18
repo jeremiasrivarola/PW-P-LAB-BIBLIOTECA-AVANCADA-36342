@@ -1,5 +1,6 @@
 const statsService = require("../services/stats.service");
 
+// Controller para obter estatísticas
 const getStats = async (req, res) => {
   try {
     const stats = await statsService.getStats();

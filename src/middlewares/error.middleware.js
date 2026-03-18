@@ -1,3 +1,4 @@
+// Middleware global de tratamento de erros
 module.exports = (err, req, res, next) => {
   console.error(err);
 

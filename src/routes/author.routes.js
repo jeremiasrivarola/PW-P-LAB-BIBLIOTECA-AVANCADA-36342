@@ -1,13 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllAuthors, createAuthor, getAuthorById, updateAuthor, deleteAuthor,getBooksByAuthor } = require("../controllers/author.controller");
+const {
+  getAllAuthors,
+  createAuthor,
+  getAuthorById,
+  updateAuthor,
+  deleteAuthor,
+  getBooksByAuthor,
+  getTopAuthors
+} = require("../controllers/author.controller");
 
-router.get("/", getAllAuthors);
-router.post("/", createAuthor);
-router.get("/:id", getAuthorById);    // pega por id
-router.put("/:id", updateAuthor);
-router.delete("/:id", deleteAuthor);
-router.get('/:id/books', getBooksByAuthor);
+// Rotas de autores
+router.get("/", getAllAuthors);             // lista todos os autores
+router.post("/", createAuthor);             // cria novo autor
+router.get("/:id", getAuthorById);          // obtém autor por ID
+router.put("/:id", updateAuthor);           // atualiza autor
+router.delete("/:id", deleteAuthor);        // apaga autor
+router.get("/:id/books", getBooksByAuthor); // obtém livros de um autor específico
+router.get("/top", getTopAuthors);          // top autor
 
 module.exports = router;

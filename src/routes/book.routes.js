@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   getAllBooks,
   getBookById,
@@ -9,7 +10,7 @@ const {
   deleteBook
 } = require("../controllers/book.controller");
 
-// Rotas
+// Rotas de livros
 router.get("/search", searchBooks); // pesquisa por título
 router.get("/", getAllBooks);       // lista todos os livros (com paginação e sort)
 router.get("/:id", getBookById);    // livro específico

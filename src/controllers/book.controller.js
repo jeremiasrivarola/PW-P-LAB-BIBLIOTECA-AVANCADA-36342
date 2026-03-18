@@ -1,13 +1,13 @@
 const bookService = require("../services/book.service");
 const prisma = require("../prisma/prismaClient");
 
-// GET /books
+// GET /books - lista todos os livros com paginação e ordenação
 const getAllBooks = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    const sort = req.query.sort; // ex: "year:desc,title:asc"
+    const sort = req.query.sort; // "title" ou "year"
 
     const books = await bookService.getAllBooks(skip, limit, sort);
 
@@ -18,7 +18,7 @@ const getAllBooks = async (req, res) => {
   }
 };
 
-// GET /books/:id
+// GET /books/:id - obtém um livro específico
 const getBookById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -31,22 +31,23 @@ const getBookById = async (req, res) => {
   }
 };
 
-// GET /books/search?title=...
+// GET /books/search?title=... - pesquisa livros pelo título
 const searchBooks = async (req, res) => {
   try {
-    const title = req.query.title || ""; // default string
+    const title = req.query.title || "";
     const books = await bookService.searchBooks(title);
     res.status(200).json({ count: books.length, data: books });
   } catch (error) {
-    console.error("Erro no searchBooks:", error); // imprime o erro real
+    console.error("Erro no searchBooks:", error);
     res.status(500).json({ message: "Erro interno do servidor" });
   }
 };
 
-// POST /books
+// POST /books - cria um novo livro
 const createBook = async (req, res) => {
   try {
     const { title, year, genre, authorId } = req.body;
+
     if (!title || !year || !genre || !authorId)
       return res.status(400).json({ message: "Campos obrigatórios em falta" });
 
@@ -63,7 +64,7 @@ const createBook = async (req, res) => {
   }
 };
 
-// PUT /books/:id
+// PUT /books/:id - atualiza um livro existente
 const updateBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,7 +89,7 @@ const updateBook = async (req, res) => {
   }
 };
 
-// DELETE /books/:id
+// DELETE /books/:id - apaga um livro
 const deleteBook = async (req, res) => {
   try {
     const { id } = req.params;
