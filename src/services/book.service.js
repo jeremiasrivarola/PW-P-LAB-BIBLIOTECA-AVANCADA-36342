@@ -38,6 +38,8 @@ const searchBooks = async (title = "") => {
   });
 };
 
+
+
 // Criar um novo livro
 const createBook = async (bookData) => {
   return prisma.book.create({ data: bookData });
@@ -63,4 +65,5 @@ module.exports = {
   createBook,
   updateBook,
   deleteBook
+  
 };

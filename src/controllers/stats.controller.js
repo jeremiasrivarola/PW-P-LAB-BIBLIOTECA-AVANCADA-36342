@@ -11,4 +11,14 @@ const getStats = async (req, res) => {
   }
 };
 
-module.exports = { getStats };
+const getGenresStats = async (req, res) => {
+  try {
+    const stats = await statsService.getBooksCountByGenre();
+    res.status(200).json(stats);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};
+
+module.exports = { getStats, getGenresStats };

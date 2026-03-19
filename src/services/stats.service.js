@@ -13,13 +13,29 @@ const getStats = async () => {
 
   // Livros emprestados
   const borrowedBooks = await prisma.book.count({ where: { available: false } });
+  // Agrupa por genre e conta
+
 
   return {
     totalBooks,
     totalAuthors,
     availableBooks,
-    borrowedBooks
+    borrowedBooks,
   };
 };
+const getBooksCountByGenre = async () => {
 
-module.exports = { getStats };
+  const books = await prisma.book.groupBy({
+    by: ['genre'],
+    _count: {
+      genre: true
+    }
+  });
+  const result = {};
+  books.forEach(b => {
+    result[b.genre] = b._count.genre;
+  });
+
+  return result;
+};
+module.exports = { getStats, getBooksCountByGenre };

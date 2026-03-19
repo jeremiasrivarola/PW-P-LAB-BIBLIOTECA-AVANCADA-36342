@@ -105,6 +105,28 @@ const getTopAuthors = async (req, res) => {
   }
 };
 
+const createAuthorWithBooks = async (req, res) => {
+  try {
+    const { name, nationality, birthYear, books } = req.body;
+
+    // Validações básicas
+    if (!name || !Array.isArray(books) || books.length === 0) {
+      return res.status(400).json({ message: "É obrigatório fornecer o nome do autor e pelo menos 1 livro" });
+    }
+
+    // Criar autor + livros
+    const result = await authorService.createAuthorWithBooks(
+      { name, nationality, birthYear },
+      books
+    );
+
+    res.status(201).json(result);
+  } catch (error) {
+    console.error("ERRO createAuthorWithBooks:", error);
+    res.status(500).json({ message: "Erro interno do servidor" });
+  }
+};
+
 module.exports = {
   getAllAuthors,
   createAuthor,
@@ -112,5 +134,6 @@ module.exports = {
   updateAuthor,
   deleteAuthor,
   getBooksByAuthor,
-  getTopAuthors 
+  getTopAuthors ,
+  createAuthorWithBooks
 };
