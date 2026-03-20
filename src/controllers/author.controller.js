@@ -6,7 +6,7 @@ const getAllAuthors = async (req, res) => {
     const authors = await authorService.getAllAuthors();
     res.status(200).json(authors);
   } catch (error) {
-    console.error(error); // mostra o erro real
+    console.error(error); 
     res.status(500).json({ message: "Erro interno do servidor" });
   }
 };
@@ -109,7 +109,7 @@ const createAuthorWithBooks = async (req, res) => {
   try {
     const { name, nationality, birthYear, books } = req.body;
 
-    // Validações básicas
+    
     if (!name || !Array.isArray(books) || books.length === 0) {
       return res.status(400).json({ message: "É obrigatório fornecer o nome do autor e pelo menos 1 livro" });
     }

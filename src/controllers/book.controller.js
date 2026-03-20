@@ -7,7 +7,7 @@ const getAllBooks = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    const sort = req.query.sort; // "title" ou "year"
+    const sort = req.query.sort;
 
     const books = await bookService.getAllBooks(skip, limit, sort);
 

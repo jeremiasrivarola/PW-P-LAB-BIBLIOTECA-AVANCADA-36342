@@ -58,12 +58,12 @@ const getTopAuthors = async (limit = 5) => {
 // Cria um autor com vários livros em uma transação
 const createAuthorWithBooks = async (authorData, booksData) => {
   return await prisma.$transaction(async (tx) => {
-    // 1️⃣ Criar o autor
+   
     const author = await tx.author.create({
       data: authorData
     });
 
-    // 2️⃣ Criar os livros associados
+    
     const booksToCreate = booksData.map(book => ({
       ...book,
       authorId: author.id

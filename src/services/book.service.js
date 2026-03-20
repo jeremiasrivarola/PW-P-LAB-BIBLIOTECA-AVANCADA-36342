@@ -6,7 +6,7 @@ const getAllBooks = async (skip = 0, take = 10, sort) => {
 
   // Aceita apenas 'title' ou 'year'
   if (sort === "title" || sort === "year") {
-    orderBy = { [sort]: "asc" }; // ordena ascendente
+    orderBy = { [sort]: "asc" }; 
   }
 
   return prisma.book.findMany({
@@ -30,7 +30,7 @@ const searchBooks = async (title = "") => {
   return prisma.book.findMany({
     where: {
       title: {
-        contains: title || "", // garante que é string
+        contains: title || "",
         mode: "insensitive"
       }
     },
